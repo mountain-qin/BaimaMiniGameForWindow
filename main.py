@@ -6,8 +6,8 @@ import sys
 import wx
 
 
-import Translater
-if not Translater.init(): _=lambda x:x
+import translater
+if not translater.init(): _=lambda x:x
 
 
 app_name="MiniGame"
@@ -22,7 +22,9 @@ class MiniGame(wx.Frame):
 		self.main_dir_path=os.path.dirname(os.path.abspath(sys.argv[0]))
 
 		self.index=-1
-		self.games=[{"name": _("Baima Puzzle"), "path": "Puzzle\\Puzzle.exe"}]
+		self.games=[{"name": _("Baima Puzzle"), "path": "BaimaPuzzle\\BaimaPuzzle.exe"},
+		{"name":_("Baima Rubiks Cube"), "path":"BaimaRubiksCube\\BaimaRubiksCube.exe"}
+		]
 
 		# if len(self.games)==1:
 			# os.startfile(os.path.realpath(self.games[0]["path"]))
@@ -63,9 +65,10 @@ class MiniGame(wx.Frame):
 		self.lb.SetString(0, message)
 		return None
 
+app=wx.App(False)
 try:
-	app=wx.App(False)
 	MiniGame()
-	app.MainLoop()
-except:
-		pass
+except BaseException as e:
+		print(e)
+
+app.MainLoop()
